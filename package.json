@@ -1,0 +1,53 @@
+{
+  "name": "@mybricks/rocker-mvc-plugin-react",
+  "version": "0.0.2",
+  "description": "The plugin for rending reactjs for Rocker-mvc",
+  "main": "src/index.js",
+  "author": "CheMingjun",
+  "scripts": {
+    "build": "npm run clean && (tsc || true)",
+    "clean": "rimraf *.js ./src/**/*.js ./src/**/*.d.ts ./test/**/*.js",
+    "dev": "npm run build && npm run start & node test/test.js",
+    "start": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.hellobike.cn/Power/rocker/rocker-mvc-plugin-render-react.git"
+  },
+  "keywords": [
+    "Rocker",
+    "Rocker-mvc",
+    "reactjs"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "@mybricks/rocker-commons": "0.0.2",
+    "babel-loader": "^8.0.6",
+    "core-js": "^2.6.11",
+    "css-loader": "^3.4.2",
+    "ejs": "^3.1.2",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
+    "mkdirp": "^1.0.4",
+    "socket.io": "^2.3.0",
+    "style-loader": "^1.1.3",
+    "ts-loader": "^6.2.1",
+    "webpack": "^4.42.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.0.3",
+    "@types/mkdirp": "^1.0.0",
+    "@types/node": "^13.9.0",
+    "@types/socket.io": "^2.1.4",
+    "@types/webpack": "^4.41.12",
+    "@types/webpack-merge": "^4.1.5",
+    "rewire": "^3.0.2",
+    "rimraf": "^2.6.2",
+    "typescript": "^3.8.3"
+  }
+}

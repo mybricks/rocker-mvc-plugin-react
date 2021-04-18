@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false,
+    //"sourceMap": true,
+    "allowJs": true,
+    //"outDir": "target",
+//    "sourceMap": true,
+    "inlineSourceMap": true
+    //"inlineSources": true
+  },
+  "lib": [
+    "es2016"
+  ],
+  "types": [
+    "node",
+    "source-map"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.tsx"
+  ]
+}
