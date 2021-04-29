@@ -1,17 +1,18 @@
 export default function entryFactory(path, scriptId) {
   return `
-    import {render} from 'rxui'
+    import {render} from '@mybricks/rxui'
     import Page from "${path}";
     
+    const parent = document.createElement('div')
+    parent.style.height = '100%'
+    document.body.appendChild(parent)
+
     const script = document.querySelector('#${scriptId}')
-    
-    function _Page(){
-        return (<Page {...JSON.parse(script.dataset.obj)}/>)
-    }
-    
-    render(_Page, script, () => {
+
+    render(<Page {...JSON.parse(script.dataset.obj)}/>, parent, () => {
+        //parent.replaceWith(...[...parent.childNodes])
         script.replaceWith(...[...script.childNodes])
-      }
-    )
+    })
+    
         `
 }

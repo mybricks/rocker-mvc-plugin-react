@@ -18,7 +18,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      'rxui': path.resolve(process.cwd(), './node_modules/@mybricks/rxui')
+
     }
   },
   module: {
