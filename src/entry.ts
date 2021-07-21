@@ -1,7 +1,7 @@
 export default function entryFactory(path, scriptId) {
   return `
     import {render} from '@mybricks/rxui'
-    import Page from "${path}";
+    import Page from "${path.replace(/\(.+\)/, '')}";
     
     const parent = document.createElement('div')
     parent.style.height = '100%'
