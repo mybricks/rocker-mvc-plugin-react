@@ -21,8 +21,8 @@ type CompileParam = {
   webpackConfig?: object | string,
   webpackConfigMode?: string,
   cssSplit?: boolean,
-  debugPort?: number
-
+  debugPort?: number,
+  cb: () => void
 }
 
 export default function (param: CompileParam) {
@@ -292,6 +292,10 @@ function render(param: CompileParam, data) {
       Logger.info("文件编译完成");
       if (buildMsg) {
         Logger.info(buildMsg);
+      }
+      if (param.env === 'prod' && param.cb) {
+        Logger.info("执行回调函数");
+        param.cb()
       }
       detectChunkMap();
     })
