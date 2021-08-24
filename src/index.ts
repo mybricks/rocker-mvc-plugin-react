@@ -22,7 +22,7 @@ type CompileParam = {
   webpackConfigMode?: string,
   cssSplit?: boolean,
   debugPort?: number
-
+  cb: () => {}
 }
 
 export default function (param: CompileParam) {
@@ -163,7 +163,7 @@ function render(param: CompileParam, data) {
           // 编译非 ejs 文件，分为 module 和 html
           const renderType = it.renderType || defaultRenderType;
           if (renderType === defaultRenderType) {
-            let fileContent = fs.readFileSync(wrapperPath, 'utf-8')
+            let fileContent = fs.readFileSync(it.wrapper || wrapperPath, 'utf-8')
             if (isLocal) {
               fileContent = addReloadScript(fileContent, param.debugPort)
             }
@@ -293,6 +293,8 @@ function render(param: CompileParam, data) {
       if (buildMsg) {
         Logger.info(buildMsg);
       }
+      
+      typeof param.cb === "function" && param.cb();
       detectChunkMap();
     })
 
