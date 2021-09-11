@@ -4,7 +4,7 @@ import * as exec from "child_process";
 import * as webpack from "webpack";
 import {Logger} from "@mybricks/rocker-commons";
 
-import * as merge from "webpack-merge";
+import {merge} from "webpack-merge";
 import entryFactory from "./entry.js";
 import * as mkdirp from "mkdirp";
 

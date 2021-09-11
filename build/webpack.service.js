@@ -1,14 +1,16 @@
 ﻿const {BUILD_PATH} = require("../src/constants")
 const path = require('path')
 const webpack = require('webpack')
-const pathSrc = path.resolve(__dirname, '../src')
-const testSrc = path.resolve(__dirname, '../test')
 
 const ignoreWarningPlugin = require('./ignoreWarningPlugin')
+const HappyPack = require('happypack');
 const tsConfig = require('./tsconfig')
 
 module.exports = {
   entry: {},
+  cache: {
+    type: "filesystem", 
+  },
   mode: "production",// "production" | "development" | "none"
   output: {
     filename: "[name].js",
@@ -17,50 +19,18 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      // 'rxui': path.resolve(process.cwd(), './node_modules/@mybricks/rxui')
     }
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        //include: [pathSrc, testSrc],
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-react'  // jsx支持
-                //['@babel/preset-env', { useBuiltIns: 'usage', corejs: 2 }] // 按需使用polyfill
-              ],
-              plugins: [
-                ['@babel/plugin-proposal-class-properties', {'loose': true}] // class中的箭头函数中的this指向组件
-              ],
-              cacheDirectory: true // 加快编译速度
-            }
-          }
-        ]
+        use: ['happypack/loader?id=babel']
       },
       {
         test: /\.tsx?$/,
-        //include: [pathSrc, testSrc],
         use: [
-          // {
-          //   loader: './config/test-loader'
-          // },
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-react'  // jsx支持
-                //['@babel/preset-env', { useBuiltIns: 'usage', corejs: 2 }] // 按需使用polyfill
-              ],
-              plugins: [
-                ['@babel/plugin-proposal-class-properties', {'loose': true}] // class中的箭头函数中的this指向组件
-              ],
-              cacheDirectory: true // 加快编译速度
-            }
-          },
+          'happypack/loader?id=babel',
           {
             loader: 'ts-loader',
             options: tsConfig
@@ -87,10 +57,6 @@ module.exports = {
           {loader: 'less-loader'}
         ]
       }
-      // {
-      //   test: /\/[^\.]+\.less$/gi,
-      //   use: ['style-loader', 'css-loader', 'less-loader']
-      // }
     ]
   },
   plugins: [
@@ -102,7 +68,21 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
-    new ignoreWarningPlugin()   // All warnings will be ignored
-    //new BundleAnalyzerPlugin()
+    new ignoreWarningPlugin(),   // All warnings will be ignored
+    new HappyPack({
+      id: 'babel',
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-react'
+          ],
+          plugins: [
+            ['@babel/plugin-proposal-class-properties', {'loose': true}]
+          ],
+          cacheDirectory: true,
+        }
+      }],
+    }),
   ]
 }
