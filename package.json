@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/rocker-mvc-plugin-react",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "The plugin for rending reactjs for Rocker-mvc",
   "main": "src/index.js",
   "author": "CheMingjun",
@@ -47,7 +47,6 @@
     "@types/socket.io": "^2.1.4",
     "@types/webpack": "^4.41.12",
     "@types/webpack-merge": "^4.1.5",
-    "happypack": "^5.0.1",
     "rewire": "^3.0.2",
     "rimraf": "^2.6.2"
   }

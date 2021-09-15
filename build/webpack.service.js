@@ -3,7 +3,6 @@ const path = require('path')
 const webpack = require('webpack')
 
 const ignoreWarningPlugin = require('./ignoreWarningPlugin')
-const HappyPack = require('happypack');
 const tsConfig = require('./tsconfig')
 
 module.exports = {
@@ -25,12 +24,38 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        use: ['happypack/loader?id=babel']
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-react'  // jsx支持
+                //['@babel/preset-env', { useBuiltIns: 'usage', corejs: 2 }] // 按需使用polyfill
+              ],
+              plugins: [
+                ['@babel/plugin-proposal-class-properties', {'loose': true}] // class中的箭头函数中的this指向组件
+              ],
+              cacheDirectory: true // 加快编译速度
+            }
+          }
+        ]
       },
       {
         test: /\.tsx?$/,
         use: [
-          'happypack/loader?id=babel',
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-react'  // jsx支持
+                //['@babel/preset-env', { useBuiltIns: 'usage', corejs: 2 }] // 按需使用polyfill
+              ],
+              plugins: [
+                ['@babel/plugin-proposal-class-properties', {'loose': true}] // class中的箭头函数中的this指向组件
+              ],
+              cacheDirectory: true // 加快编译速度
+            }
+          },
           {
             loader: 'ts-loader',
             options: tsConfig
@@ -68,21 +93,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
-    new ignoreWarningPlugin(),   // All warnings will be ignored
-    new HappyPack({
-      id: 'babel',
-      loaders: [{
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            '@babel/preset-react'
-          ],
-          plugins: [
-            ['@babel/plugin-proposal-class-properties', {'loose': true}]
-          ],
-          cacheDirectory: true,
-        }
-      }],
-    }),
+    new ignoreWarningPlugin()   // All warnings will be ignored
+
   ]
 }
