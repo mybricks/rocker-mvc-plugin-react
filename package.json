@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/rocker-mvc-plugin-react",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "The plugin for rending reactjs for Rocker-mvc",
   "main": "src/index.js",
   "author": "CheMingjun",
