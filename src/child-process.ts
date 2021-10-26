@@ -250,7 +250,7 @@ function build(param, files, types, preBuild) {
         cached: false,
         cachedAssets: false,
         children: false,
-        chunkGroups: false,
+        chunkGroups: true,
         chunkModules: false,
         chunkOrigins: false,
         moduleTrace: false,
