@@ -168,7 +168,7 @@ function render(param: CompileParam, data) {
               fileContent = addReloadScript(fileContent, param.debugPort)
             }
 
-            fileContent = fileContent.replace(/<\/body\s*>/, `<script id="<%=id %>" data-obj="<%= JSON.stringify(obj) %>" src="<%= src %>"></script>\n</body>`)
+            fileContent = fileContent.replace(/<\/body\s*>/, `<script id="<%=id %>" data-obj="<%= JSON.stringify(obj) %>" src="<%= src %>" crossorigin="anonymous"></script>\n</body>`)
 
             let tpt = EJS.compile(fileContent, 'utf8');
 
@@ -182,7 +182,8 @@ function render(param: CompileParam, data) {
                   chunkMap: chunkMap,
                   prePath: srcPre,
                   obj: model,
-                  jsFilename
+                  jsFilename,
+                  env: param.env
                 }
 
                 if (ejs) {
